@@ -1,39 +1,28 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
+import {DarkTheme, DefaultTheme, ThemeProvider} from "@react-navigation/native";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
-  );
+    return (
+        <ThemeProvider value={ DarkTheme }>
+            <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+                <Stack.Screen name="+not-found" />
+            </Stack>
+        </ThemeProvider>
+    );
 }
+
+/*
+*
+*
+*
+Tên "tabs" có thể là thư mục chứa Tabs của bạn
+
+    expo-router sử dụng tên thư mục làm tên tuyến đường.
+    Nếu thư mục của bạn là (tabs), bạn cần sử dụng chính tên này khi khai báo Stack.Screen.
+
+Nếu không sửa, expo-router có thể coi Tabs là một màn hình riêng biệt
+
+    Khi đó, Stack sẽ hiển thị một tiêu đề mặc định cho màn hình Tabs, gây ra lỗi thanh (tabs) ở trên cùng.
+*
+* */
