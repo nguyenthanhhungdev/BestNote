@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
-import {DarkTheme, DefaultTheme, ThemeProvider} from "@react-navigation/native";
+import {DarkTheme, ThemeProvider} from "@react-navigation/native";
 
 export default function RootLayout() {
     return (
@@ -7,7 +7,7 @@ export default function RootLayout() {
             <Stack>
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="+not-found" />
-                <Stack.Screen name="note" options={{title: "Note Item"}}/>
+                <Stack.Screen name="note/[id]" options={{title: "Note Item"}}/>
             </Stack>
         </ThemeProvider>
     );
